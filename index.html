@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buatt BUBBIEEEEE 💖</title>
+    <style>
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #fce4ec;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+            animation: fadeIn 1s ease-out;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border-radius: 12px;
+            z-index: 0;
+            pointer-events: none;
+            background: linear-gradient(135deg, #ffb6d5 0%, #ff69b4 50%, #e91e63 100%);
+            opacity: 0.7;
+        }
+
+        .container > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #e91e63;
+            margin-bottom: 20px;
+        }
+
+        .image-container {
+            margin-bottom: 25px;
+        }
+
+        .love-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ff8a80;
+            transition: transform 0.3s ease;
+        }
+
+        .love-image:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .question-text {
+            color: #333;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            font-size: 1em;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .btn-yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-yes:hover {
+            background-color: #45a049;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-no {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn-no:hover {
+            background-color: #da190b;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .confirmation-message {
+            margin-top: 20px;
+            color: #e91e63;
+            font-size: 1.3em;
+            font-weight: bold;
+            display: none;
+            padding: 10px;
+            background-color: #ffebee;
+            border-radius: 10px;
+        }
+
+        
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 10; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4); 
+            justify-content: center;
+            align-items: center;
+            padding-top: 50px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            border: 3px solid #e91e63;
+            width: 80%;
+            max-width: 300px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+            animation: animatetop 0.4s;
+        }
+
+        @keyframes animatetop {
+            from {top:-300px; opacity:0}
+            to {top:0; opacity:1}
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: #e91e63;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-text {
+            font-size: 1.5em;
+            color: #e91e63;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .modal-button {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .modal-button:hover {
+            background-color: #da190b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Bubbieee ❤️</h1>
+    <div class="image-container">
+    <img id="mainImage" src="https://media.tenor.com/OfS-MFMtBCQAAAAM/%EB%AA%A8%EC%B0%8C-%EB%AA%A8%EB%AA%A8%EC%B0%8C.gif" alt="Gambar Hati Berkilau" class="love-image">
+    </div>
+    <p class="question-text">
+        bubbieee makasihhh yaa udahh mauu sama akuu
+        <br>
+        <b>bubbiee sayang aku nggaaaa?🫠</b>
+    </p>
+
+    <div class="button-group">
+        <button class="btn btn-yes" id="btnYes">bangetttt 😍</button>
+        <button class="btn btn-no" id="btnNo">ga 😥</button>
+    </div>
+
+    <div class="confirmation-message" id="confirmMsg">
+        AKU JUGA SAYANG SAMA BUBBIEEE LOVE UUUU💕
+    </div>
+</div>
+
+<div id="seriousModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="closeModal">&times;</span>
+        <p class="modal-text">Serius?? 🥺</p>
+        <button class="modal-button" id="btnSerious">Seriusss</button>
+    </div>
+</div>
+
+<script>
+    const btnNo = document.getElementById('btnNo');
+    const btnYes = document.getElementById('btnYes');
+    const confirmMsg = document.getElementById('confirmMsg');
+    const buttonGroup = document.querySelector('.button-group');
+    const mainImage = document.getElementById('mainImage');
+
+    
+    const modal = document.getElementById('seriousModal');
+    const closeModal = document.getElementById('closeModal');
+    const btnSerious = document.getElementById('btnSerious');
+
+    btnNo.addEventListener('click', function(event) {
+        event.preventDefault(); 
+        modal.style.display = 'flex'; 
+    });
+
+    
+    btnSerious.addEventListener('click', function() {
+        modal.style.display = 'none';
+        showUlangModal();
+    });
+
+    function showUlangModal() {
+        let ulangModal = document.getElementById('ulangModal');
+        if (!ulangModal) {
+            ulangModal = document.createElement('div');
+            ulangModal.id = 'ulangModal';
+            ulangModal.className = 'modal';
+            ulangModal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close-btn" id="closeUlangModal">&times;</span>
+                    <p class="modal-text">Ga jadi ahh, ulang!</p>
+                </div>
+            `;
+            document.body.appendChild(ulangModal);
+        }
+        ulangModal.style.display = 'flex';
+        document.getElementById('closeUlangModal').onclick = function() {
+            ulangModal.style.display = 'none';
+        };
+        ulangModal.onclick = function(e) {
+            if (e.target === ulangModal) ulangModal.style.display = 'none';
+        };
+    }
+
+    
+    closeModal.addEventListener('click', function() {
+    modal.style.display = 'none'; 
+    });
+
+    
+    window.addEventListener('click', function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    
+    btnYes.addEventListener('click', function() {
+        confirmMsg.style.display = 'block';
+        btnYes.disabled = true;
+        btnNo.disabled = true;
+        mainImage.src = 'https://media.tenor.com/gHNB_S_Sb0sAAAAM/huggg.gif';
+    });
+</script>
+
+</body>
+</html>
