@@ -247,10 +247,40 @@
     const closeModal = document.getElementById('closeModal');
     const btnSerious = document.getElementById('btnSerious');
 
+    let gaClickCount = 0;
     btnNo.addEventListener('click', function(event) {
-        event.preventDefault(); 
-        modal.style.display = 'flex'; 
+        event.preventDefault();
+        gaClickCount++;
+        if (gaClickCount === 3) {
+            showSeriusModal();
+            gaClickCount = 0;
+        } else {
+            modal.style.display = 'flex';
+        }
     });
+    // Modal untuk "SERIUS GA SESAYANG ITU"
+    function showSeriusModal() {
+        let seriusModal = document.getElementById('seriusModal');
+        if (!seriusModal) {
+            seriusModal = document.createElement('div');
+            seriusModal.id = 'seriusModal';
+            seriusModal.className = 'modal';
+            seriusModal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close-btn" id="closeSeriusModal">&times;</span>
+                    <p class="modal-text" style="color:#e91e63;font-weight:bold;">SERIUS GA SESAYANG ITU??</p>
+                </div>
+            `;
+            document.body.appendChild(seriusModal);
+        }
+        seriusModal.style.display = 'flex';
+        document.getElementById('closeSeriusModal').onclick = function() {
+            seriusModal.style.display = 'none';
+        };
+        seriusModal.onclick = function(e) {
+            if (e.target === seriusModal) seriusModal.style.display = 'none';
+        };
+    }
 
     
     btnSerious.addEventListener('click', function() {
@@ -258,6 +288,98 @@
         showUlangModal();
     });
 
+    function showSeriusModal() {
+        let seriusModal = document.getElementById('seriusModal');
+        if (!seriusModal) {
+            seriusModal = document.createElement('div');
+            seriusModal.id = 'seriusModal';
+            seriusModal.className = 'modal';
+            seriusModal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close-btn" id="closeSeriusModal">&times;</span>
+                    <p class="modal-text" style="color:#e91e63;font-weight:bold;">SERIUS GA SESAYANG ITU</p>
+                    <div style="display:flex; gap:10px; justify-content:center; margin-top:20px;">
+                        <button id="btnBecanda" style="background:#4CAF50;color:#fff;padding:10px 20px;border:none;border-radius:20px;font-weight:bold;cursor:pointer;">Becanda</button>
+                        <button id="btnSeriusBeneran" style="background:#f44336;color:#fff;padding:10px 20px;border:none;border-radius:20px;font-weight:bold;cursor:pointer;">Serius</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(seriusModal);
+        }
+        seriusModal.style.display = 'flex';
+        document.getElementById('closeSeriusModal').onclick = function() {
+            seriusModal.style.display = 'none';
+        };
+        document.getElementById('btnSeriusBeneran').onclick = function() {
+            seriusModal.style.display = 'none';
+            showMalesModal();
+        };
+    function showMalesModal() {
+        let malesModal = document.getElementById('malesModal');
+        if (!malesModal) {
+            malesModal = document.createElement('div');
+            malesModal.id = 'malesModal';
+            malesModal.className = 'modal';
+            malesModal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close-btn" id="closeMalesModal">&times;</span>
+                    <p class="modal-text">dah ah males ama bubbie</p>
+                </div>
+            `;
+            document.body.appendChild(malesModal);
+        } else {
+            malesModal.querySelector('.modal-text').innerText = "dah ah males ama bubbie";
+        }
+        malesModal.style.display = 'flex';
+        document.getElementById('closeMalesModal').onclick = function() {
+            malesModal.style.display = 'none';
+            afterMales();
+        };
+        malesModal.onclick = function(e) {
+            if (e.target === malesModal) {
+                malesModal.style.display = 'none';
+                afterMales();
+            }
+        };
+        // Ganti gambar utama ke gambar sedih
+        mainImage.src = 'https://media.tenor.com/0XxZLMzjYV0AAAAj/dudu-crying-texting.gif';
+
+        // Fungsi untuk mengubah tampilan setelah popup males ditutup
+        function afterMales() {
+            // Hilangkan tombol "ga"
+            if (btnNo && btnNo.parentNode) {
+                btnNo.parentNode.removeChild(btnNo);
+            }
+            // Ubah tombol "bangetttt" jadi "sayangg kokk bubbie" warna hijau
+            btnYes.textContent = 'sayangg kokk bubbie';
+            btnYes.classList.remove('btn-no');
+            btnYes.classList.add('btn-yes');
+            btnYes.disabled = false;
+            // Ubah teks
+            const qText = document.querySelector('.question-text');
+            if (qText) {
+                qText.innerHTML = 'males ah<br><b>beneran ga sayang ya?</b>';
+            }
+        }
+    }
+        document.getElementById('btnBecanda').onclick = function() {
+            seriusModal.style.display = 'none';
+            confirmMsg.style.display = 'block';
+            mainImage.src = 'https://media.tenor.com/gHNB_S_Sb0sAAAAM/huggg.gif';
+            // Hilangkan tombol 'ga' dan 'bangetttt' jika masih ada
+            if (btnNo && btnNo.parentNode) {
+                btnNo.parentNode.removeChild(btnNo);
+            }
+            if (btnYes && btnYes.parentNode) {
+                btnYes.parentNode.removeChild(btnYes);
+            }
+            // Hilangkan semua button di .button-group
+            if (buttonGroup) buttonGroup.innerHTML = '';
+        };
+        seriusModal.onclick = function(e) {
+            if (e.target === seriusModal) seriusModal.style.display = 'none';
+        };
+    }
     function showUlangModal() {
         let ulangModal = document.getElementById('ulangModal');
         if (!ulangModal) {
@@ -267,10 +389,12 @@
             ulangModal.innerHTML = `
                 <div class="modal-content">
                     <span class="close-btn" id="closeUlangModal">&times;</span>
-                    <p class="modal-text">Ga jadi ahh, ulang!</p>
+                    <p class="modal-text">ga jadi ahh, ulang! <span style='font-size:1.5em;'>😭</span></p>
                 </div>
             `;
             document.body.appendChild(ulangModal);
+        } else {
+            ulangModal.querySelector('.modal-text').innerHTML = "Ga jadi ahh, ulang! <span style='font-size:1.5em;'>😭</span>";
         }
         ulangModal.style.display = 'flex';
         document.getElementById('closeUlangModal').onclick = function() {
@@ -297,8 +421,10 @@
     btnYes.addEventListener('click', function() {
         confirmMsg.style.display = 'block';
         btnYes.disabled = true;
-        btnNo.disabled = true;
+        btnNo && (btnNo.disabled = true);
         mainImage.src = 'https://media.tenor.com/gHNB_S_Sb0sAAAAM/huggg.gif';
+        // Hilangkan semua button di .button-group
+        if (buttonGroup) buttonGroup.innerHTML = '';
     });
 </script>
 
