@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bubbie Love</title>
     <style>
-        /* CSS Internal untuk Desain */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #fce4ec; /* Light Pink Background */
+            background-color: #fce4ec;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -18,29 +17,29 @@
         }
 
         .container {
-            background-color: #ffffff; /* White Box */
+            background-color: #ffffff;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.4); /* Pink Shadow */
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.4)
             text-align: center;
             width: 90%;
             max-width: 600px;
         }
 
         h1 {
-            color: #ff69b4; /* Hot Pink Heading */
+            color: #ff69b4;
             margin-bottom: 20px;
             text-shadow: 1px 1px 2px #f8bbd0;
         }
 
         #imageBox {
-            width: 250px; /* fixed width */
-            height: 250px; /* fixed height */
-            max-width: 100%; /* fallback for very small screens */
-            background-color: #f8bbd0; /* Soft Pink Box */
+            width: 250px;
+            height: 250px;
+            max-width: 100%;
+            background-color: #f8bbd0;
             border: 3px solid #ff69b4;
             border-radius: 10px;
-            margin: 0 auto 25px; /* center inside the container */
+            margin: 0 auto 25px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -51,9 +50,9 @@
         #mainImage {
             max-width: 100%;
             max-height: 100%;
-            object-fit: contain; /* Agar gambar tidak terdistorsi */
+            object-fit: contain;
             transition: opacity 0.5s ease;
-            display: none; /* Sembunyikan sampai resolusi dipilih */
+            display: none;
         }
 
         .resolution-controls {
@@ -64,7 +63,7 @@
         }
 
         .res-button {
-            background-color: #ff69b4; /* Pink Button */
+            background-color: #ff69b4;
             color: white;
             border: none;
             padding: 10px 15px;
@@ -75,12 +74,12 @@
         }
 
         .res-button:hover:not(:disabled) {
-            background-color: #ff1493; /* Deeper Pink on Hover */
+            background-color: #ff1493;
             transform: scale(1.05);
         }
 
         .res-button:disabled {
-            background-color: #cccccc; /* Grey for locked */
+            background-color: #cccccc;
             cursor: not-allowed;
             color: #666;
             opacity: 0.7;
@@ -116,33 +115,28 @@
         </div>
 
    <script>
-    // JavaScript Internal untuk Logika
     document.addEventListener('DOMContentLoaded', () => {
         const resolutions = ['144', '240', '480', '720', '1080'];
-        let unlockedIndex = 0; // Index resolusi tertinggi yang sudah terbuka (0 = 144p)
+        let unlockedIndex = 0;
         const mainImage = document.getElementById('mainImage');
         const placeholderText = document.getElementById('placeholderText');
         const statusMessage = document.getElementById('statusMessage');
         const buttons = document.querySelectorAll('.res-button');
 
-        // Objek untuk menyimpan path gambar (Ganti URL ini dengan URL gambar Anda yang sebenarnya!)
         const imageSources = {
-            '144': 'https://i.imgur.com/921uUCT.png', // Pink Placeholder 1
-            '240': 'https://i.imgur.com/K1xFLIR.png', // Pink Placeholder 2
-            '480': 'https://i.imgur.com/ixPAeKi.png', // Pink Placeholder 3
-            '720': 'https://i.imgur.com/UE5RDGo.png', // Pink Placeholder 4
-            '1080': 'https://cdn.discordapp.com/avatars/1405422254589743166/2a2a7d4fe889045492c89fb1325f5cc7.png', // Pink Placeholder 5
+            '144': 'https://i.imgur.com/921uUCT.png',
+            '240': 'https://i.imgur.com/K1xFLIR.png',
+            '480': 'https://i.imgur.com/ixPAeKi.png',
+            '720': 'https://i.imgur.com/UE5RDGo.png',
+            '1080': 'https://cdn.discordapp.com/avatars/1405422254589743166/2a2a7d4fe889045492c89fb1325f5cc7.png',
         };
 
-        // Fungsi untuk memperbarui status penguncian tombol
         const updateLockStatus = () => {
-            // Pastikan tombol diurutkan berdasarkan nilai data-res (numeric)
             const sortedButtons = Array.from(buttons).sort((a, b) => {
                 return Number(a.dataset.res) - Number(b.dataset.res);
             });
 
             sortedButtons.forEach((button, idx) => {
-                // Jika index tombol (urut) <= unlockedIndex maka buka, lainya kunci
                 if (idx <= unlockedIndex) {
                     button.disabled = false;
                 } else {
@@ -150,63 +144,51 @@
                 }
             });
 
-            // PERUBAHAN: Hapus logika perubahan status message di sini.
-            // Biarkan pesan status awal jika 1080p belum terbuka
             if (unlockedIndex < resolutions.length - 1) {
                 statusMessage.textContent = 'Buka Resolusi Secara bertahap';
                 statusMessage.style.color = '#ff69b4';
             }
         };
 
-        // Handler ketika tombol resolusi diklik
         const handleResolutionClick = (event) => {
             const selectedRes = event.target.dataset.res;
             const currentIndex = resolutions.indexOf(selectedRes);
 
-            // Cek apakah tombol yang diklik adalah resolusi yang sah untuk di-klik (tidak disabled)
             if (event.target.disabled) {
                 alert('Anda harus membuka resolusi sebelumnya terlebih dahulu!');
                 return;
             }
 
-            // 1. Ganti Gambar
             mainImage.src = imageSources[selectedRes];
             mainImage.style.display = 'block';
             placeholderText.style.display = 'none';
-            
-            // Animasi sederhana
+
             mainImage.style.opacity = '0';
             setTimeout(() => {
                 mainImage.style.opacity = '1';
             }, 10);
 
-            // 2. Logika Penguncian
-            // Jika resolusi yang diklik adalah resolusi yang belum pernah dicapai
             if (currentIndex === unlockedIndex) {
-                // Cek jika ini bukan resolusi tertinggi (1080p)
+
                 if (unlockedIndex < resolutions.length - 1) {
-                    unlockedIndex++; // Buka resolusi berikutnya
-                    updateLockStatus();
+                    unlockedIndex++; 
                 }
             }
 
-            // 3. LOGIKA BARU: Perbarui Status Message saat 1080p diklik
+   
             if (selectedRes === '1080') {
-                statusMessage.textContent = 'Love nya Hann💕';
-                statusMessage.style.color = '#008000'; // Hijau
+                statusMessage.textContent = 'Kangennn Sayangg👉👈';
+                statusMessage.style.color = '#008000';
             }
-            
-            // Tambahkan efek visual bahwa tombol sudah pernah diklik
+
             buttons.forEach(btn => btn.style.border = 'none');
-            event.target.style.border = '3px solid #000000'; // Border hitam sebagai indikator aktif
+            event.target.style.border = '3px solid #000000';
         };
 
-        // Pasang event listener ke semua tombol
         buttons.forEach(button => {
             button.addEventListener('click', handleResolutionClick);
         });
 
-        // Inisialisasi status awal
         updateLockStatus();
     });
 </script>
